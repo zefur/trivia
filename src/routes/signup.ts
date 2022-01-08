@@ -18,12 +18,14 @@ export const post: RequestHandler<
 	};
 	if (input.password !== input['repeat-password'])
 		return { status: 400, body: { error: 'Passwords do not match' } };
+	const db = req.locals.db;
 	const user = {
 		id: uuidv4(),
 		username: input.username,
 		email: input.email,
 		pwhash: await bcrypt.hash(input.password, 10)
 	};
+	db.users.set(user.email, user);
 	return {
 		status: 201,
 		body: {

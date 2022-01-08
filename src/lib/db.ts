@@ -16,10 +16,11 @@ export interface DB {
 	tokens: Map<string, UserToken>;
 	__stop: () => void;
 }
-const DB_FILE = db.json;
+const DB_FILE = 'db.json';
 
 export const initDB = async () => {
 	let data: Record<string, Array<[string, any]>> = {};
+	console.log('yes');
 	try {
 		const str = fs.readFileSync(DB_FILE);
 		data = JSON.parse(str.toString());
@@ -31,6 +32,7 @@ export const initDB = async () => {
 		tokens: new Map<string, UserToken>(data.tokens),
 		__stop: () => {}
 	};
+	console.log('james');
 	const interval = setInterval(() => {
 		try {
 			fs.writeFileSync(
@@ -45,4 +47,7 @@ export const initDB = async () => {
 	db.__stop = () => {
 		clearInterval(interval);
 	};
+	console.log('done');
+	console.log(db);
+	return db;
 };
