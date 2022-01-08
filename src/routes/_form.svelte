@@ -1,0 +1,47 @@
+<script lang="typescript">
+	import type { User } from '$lib/db';
+	import { afterUpdate } from 'svelte';
+	export let action = '/';
+	export let method = 'POST';
+
+	type Result = { error?: string; user?: User };
+
+	export let onUpdate: (state: { result: Result; isSubmitting: boolean }) => void = () => {};
+	let result: Result;
+	let isSubmitting = false;
+
+	const onSubmit = async (e) => {
+		e.preventDefault();
+		if (isSubmitting) return;
+		isSubmitting = true;
+		const form: HTMLFormElement = e.target.from;
+		const formData = new FormData(form);
+		const data: Record<string, string> = {};
+		formData.forEach((value, key) => {
+			data[key] = value.toString();
+		});
+
+		result = await fetch(form.action, {
+			method: form.method,
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+			.then((r) => r.json())
+			.catch((err) => {
+				return { error: err.toString() };
+			});
+		isSubmitting = false;
+	};
+	$: error = result?.error;
+
+	afterUpdate(() => onUpdate({ result, isSubmitting }));
+</script>
+
+<form class="max-w-420" {method} {action} on:click={onSubmit}>
+	<slot />
+	{#if error}
+		<p class="text-red-500">{error}</p>
+	{/if}
+</form>
