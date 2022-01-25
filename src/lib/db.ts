@@ -49,7 +49,6 @@ export const initDB = async () => {
 	db.__stop = () => {
 		clearInterval(interval);
 	};
-	console.log('done');
-	console.log(db);
+
 	return db;
 };

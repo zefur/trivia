@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
 	import type { User } from '$lib/db';
 	import { afterUpdate } from 'svelte';
 	export let action = '/';

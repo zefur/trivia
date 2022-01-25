@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import { session } from '$app/stores';
 	import Form from './_form.svelte';
