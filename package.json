@@ -13,7 +13,7 @@
     "start": "node build/index.js"  },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
-    "@sveltejs/kit": "next",
+    "@sveltejs/kit": "^1.0.0-next.239",
     "@types/bcrypt": "^5.0.0",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
