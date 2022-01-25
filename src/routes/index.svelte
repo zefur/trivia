@@ -2,7 +2,7 @@
 </script>
 
 <script lang="ts">
-	import Header from '$lib/header.svelte';
+	import Header from '$lib/Header.svelte';
 	import Card from '$lib/Card.svelte';
 	import { question } from '../routes/questionstore';
 	import { session } from '$app/stores';
@@ -14,7 +14,7 @@
 	$: username = user ? user.username : 'Guest';
 </script>
 
-<!-- <Header /> -->
+<Header />
 <h1>Welcome</h1>
 {#if user}
 	<p>You are logged in would you like to play {user.username}</p>
