@@ -1,13 +1,25 @@
 <script context="module">
 </script>
 
-<script>
+<script lang="typescript">
+	import Header from '$lib/header.svelte';
 	import Card from '$lib/Card.svelte';
 	import { question } from '../routes/questionstore';
-	console.log(question);
+	import { session } from '$app/stores';
+	import type { User } from '$lib/db';
+	let user: User | undefined;
+	session.subscribe((current) => {
+		user = current.user;
+	});
+	$: username = user ? user.username : 'Guest';
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<Card questionList={$question} />
-{question}
+<Header />
+<h1>Welcome</h1>
+{#if user}
+	<p>You are logged in would you like to play {user.username}</p>
+{:else}
+	<p>Would you like to <a href="/login">Login</a>?</p>
+{/if}
+
+<Card questionList={$question} {user} />

@@ -4,6 +4,8 @@ export type User = {
 	username: string;
 	email: string;
 	pwhash: string;
+	questions: Array<any>;
+	current: any;
 };
 
 export type UserToken = {
@@ -32,7 +34,7 @@ export const initDB = async () => {
 		tokens: new Map<string, UserToken>(data.tokens),
 		__stop: () => {}
 	};
-	console.log('james');
+
 	const interval = setInterval(() => {
 		try {
 			fs.writeFileSync(
