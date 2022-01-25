@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import Form from './_form.svelte';
 	let isSubmitting: boolean;
