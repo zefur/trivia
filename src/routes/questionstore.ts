@@ -6,6 +6,7 @@ export const fetchquestions = async () => {
 	const data = await res.json();
 	return data;
 };
-const questionList = await fetchquestions();
-
+const questionList = async () => {
+	fetchquestions();
+};
 question.set(questionList);
