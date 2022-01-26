@@ -49,6 +49,6 @@ export const initDB = async () => {
 	db.__stop = () => {
 		clearInterval(interval);
 	};
-
+	console.log('me');
 	return db;
 };
