@@ -9,12 +9,14 @@
 	export let score = 0;
 
 	const getQuestions = (questionList) => {
+		console.log('meh');
 		let currentlist;
 		if (topicl) {
 			currentlist = [...questionList].filter((question) => question.topic == topicl).splice(0, 10);
 		} else {
 			currentlist = [...questionList].sort(() => 0.5 - Math.random()).splice(0, 10);
 		}
+		console.log(currentlist);
 		return currentlist;
 	};
 	myQuestions = getQuestions(questionList);
@@ -49,6 +51,7 @@
 		<p>question {myQuestions.indexOf(currentQuestion) + 1}/{myQuestions.length}</p>
 	</div>
 	<div>
+		{console.log(questionList)}
 		<h3 class="text-center text-xl font-bold">{currentQuestion.question}</h3>
 	</div>
 	<div class="bg-sky-400 grid grid-cols-2  place-items-center text-center w-2/3  gap-4 m-auto ">

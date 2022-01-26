@@ -4,9 +4,15 @@ export const fetchquestions = async () => {
 	const url = 'https://johnmeade-webdev.github.io/chingu_quiz_api/trial.json';
 	const res = await fetch(url);
 	const data = await res.json();
-
-	return data;
+	const loadedQuestions = data.map((item) => {
+		return {
+			question: item.question,
+			id: item.id,
+			topic: item.topic,
+			choices: item.choices,
+			answer: item.answer
+		};
+	});
+	question.set(loadedQuestions);
 };
-const questionList = await fetchquestions();
-
-question.set(questionList);
+fetchquestions();
