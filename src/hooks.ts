@@ -14,7 +14,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	console.log('check first');
 	const db = await setup;
 	event.locals.db = db;
-	const cookies = event.headers.cookie
+	const cookies = event.request.headers.cookie
 		?.split(';')
 		.map((v) => parse(v.trim()))
 		.reduceRight((a, c) => {
@@ -35,7 +35,7 @@ export const getSession: GetSession = (event) => {
 	return event.locals.user
 		? {
 				user: {
-					email: request.locals.user.email,
+					email: event.locals.user.email,
 					username: event.locals.user.username
 				}
 		  }
