@@ -1,5 +1,6 @@
 import { initDB } from '$lib/db';
 import type { GetSession, Handle } from '@sveltejs/kit';
+import { respond } from '@sveltejs/kit/ssr';
 import { parse } from 'querystring';
 
 console.log('start');
@@ -9,11 +10,11 @@ const setup = initDB().catch((err) => {
 	process.exit(-1);
 });
 
-export const handle: Handle = async ({ request, resolve }) => {
+export const handle: Handle = async ({ event, resolve }) => {
 	console.log('check first');
 	const db = await setup;
-	request.locals.db = db;
-	const cookies = request.headers.cookie
+	event.locals.db = db;
+	const cookies = event.headers.cookie
 		?.split(';')
 		.map((v) => parse(v.trim()))
 		.reduceRight((a, c) => {
@@ -22,20 +23,20 @@ export const handle: Handle = async ({ request, resolve }) => {
 	if (cookies?.token && typeof cookies.token === 'string') {
 		const existingToken = db.tokens.get(cookies.token);
 		if (existingToken) {
-			request.locals.user = db.users.get(existingToken.email);
+			event.locals.user = db.users.get(existingToken.email);
 		}
 	}
 
-	const response = await resolve(request);
+	const response = await resolve(event);
 	return response;
 };
 
-export const getSession: GetSession = (request) => {
-	return request.locals.user
+export const getSession: GetSession = (event) => {
+	return event.locals.user
 		? {
 				user: {
 					email: request.locals.user.email,
-					username: request.locals.user.username
+					username: event.locals.user.username
 				}
 		  }
 		: {};
