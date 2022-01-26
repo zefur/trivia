@@ -1,6 +1,6 @@
 import { initDB } from '$lib/db';
 import type { GetSession, Handle } from '@sveltejs/kit';
-import { respond } from '@sveltejs/kit/ssr';
+
 import { parse } from 'querystring';
 
 console.log('start');
