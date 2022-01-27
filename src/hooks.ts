@@ -12,7 +12,7 @@ const setup = initDB().catch((err) => {
 
 export const handle: Handle = async ({ event, resolve }) => {
 	console.log('check first');
-	console.log(event);
+
 	const db = await setup;
 	event.locals.db = db;
 	const cookies = event.request.headers.cookie
