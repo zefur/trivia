@@ -12,7 +12,7 @@
 				<p>Please click <a href="/home"> HERE </a> to sign up</p>
 			</div>
 		{:else if $user.questionList.length > 1}
-			<Card questionList={$user.questionList} {$user} } />
+			<Card />
 		{/if}
 	</div>
 </div>

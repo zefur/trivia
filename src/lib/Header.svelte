@@ -15,10 +15,14 @@
 </script>
 
 <main>
-	<div class="sticky top-0 w-full flex bg-sky-400 h-20 ">
-		<p class="text-4xl">Chingu trivia</p>
-		<a class="align-bottom justify-self-end p-5" href="/home">Home</a>
-		<a href="/questions" class="p-5">Questions</a>
-		<p on:click={logout} class="p-5">Log out</p>
+	<div class="sticky top-0 w-screen flex   ">
+		<p class="text-4xl w-full align-base m-3">Chingu trivia</p>
+		<div class="w-full justify-end flex ">
+			<p class=" p-5"><a href="/home">Home</a></p>
+			<p class="p-5"><a href="/questions">Questions</a></p>
+			{#if $user.username != 'Guest'}
+				<p on:click={logout} class="p-5">Log out</p>
+			{/if}
+		</div>
 	</div>
 </main>

@@ -1,4 +1,6 @@
 <script>
+	import { goto } from '$app/navigation';
+
 	export let myQuestions;
 	export let currentQuestion;
 
@@ -42,20 +44,22 @@
 	};
 	export const poolReset = () => {
 		$user.questions = $question;
+		goto('/home');
 	};
 </script>
 
-<main class="flex flex-col space-y-8 text-center border min-h-max w-1/2  m-auto ">
-	<div>
-		<p>question {myQuestions.indexOf(currentQuestion) + 1}/{myQuestions.length}</p>
+<main class="flex flex-col space-y-8 text-center border-4 min-h-max w-2/3 m-auto ">
+	<div class="mt-5">
+		<p class="p-2">Question {myQuestions.indexOf(currentQuestion) + 1}/{myQuestions.length}</p>
+		<p>{currentQuestion.topic}</p>
 	</div>
 	<div>
 		<h3 class="text-center text-xl font-bold">{currentQuestion.question}</h3>
 	</div>
-	<div class=" grid grid-cols-2  place-items-center text-center w-2/3  gap-4 m-auto ">
+	<div class=" grid grid-cols-2  place-items-center text-center w-full  gap-4 m-auto">
 		{#each Object.entries(currentQuestion.choices) as [key, choice]}
 			<button
-				class="shadow   border hover:shadow-2xl w-2/3 min-h-min py-3"
+				class="shadow min-w-min  border hover:shadow-2xl w-2/3 min-h-min py-3 break-normal"
 				on:click={() => checkAnswer(key)}
 				disabled={visible}
 			>
@@ -64,11 +68,11 @@
 		{/each}
 		<div class="block col-span-2 ">
 			{#if visible}
-				<div class="w-full m-2">
-					{message}
+				<div class="w-full m-2 text-center min-w-min">
+					<p class="font-semibold break-normal">{message}</p>
 				</div>
 				{#if checkQuestion}
-					<button class="p-2 border shadow bg-sky-600 mb-4" href="/home">Home</button><button
+					<button class="p-2 border shadow bg-sky-600 mb-4"><a href="/home">Home</a></button><button
 						class="p-2 border shadow bg-sky-600 mb-4"
 						on:click={getQuestions}>Play again</button
 					><button class="p-2 border shadow bg-sky-600 mb-4" on:click={poolReset}
