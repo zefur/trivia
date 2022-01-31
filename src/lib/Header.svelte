@@ -19,6 +19,6 @@
 		<p class="text-4xl">Chingu trivia</p>
 		<a class="align-bottom justify-self-end p-5" href="/home">Home</a>
 		<a href="/questions" class="p-5">Questions</a>
-		<a on:click={logout} class="p-5">Log out</a>
+		<p on:click={logout} class="p-5">Log out</p>
 	</div>
 </main>
