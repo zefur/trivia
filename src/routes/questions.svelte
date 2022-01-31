@@ -1,5 +1,5 @@
 <script>
-	import { question, user } from './stores';
+	import { question } from './stores';
 	import Header from '$lib/Header.svelte';
 </script>
 
