@@ -28,7 +28,7 @@
 			name="repeat-password"
 			required
 		/>
-		<input class="button-primary" type="submit" value="Signup" />
+		<input class="bg-red-400" type="submit" value="Signup" disabled={isSubmitting} />
 	</fieldset>
 </Form>
 <p>Already have an account? <a href="/login">Login</a></p>

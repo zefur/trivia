@@ -12,9 +12,11 @@
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
+
 		if (isSubmitting) return;
 		isSubmitting = true;
-		const form: HTMLFormElement = e.target.form;
+		const form: HTMLFormElement = e.target;
+
 		const formData = new FormData(form);
 		const data: Record<string, string> = {};
 		formData.forEach((value, key) => {
@@ -39,7 +41,7 @@
 	afterUpdate(() => onUpdate({ result, isSubmitting }));
 </script>
 
-<form class="max-w-sm" {method} {action} on:click={onSubmit}>
+<form class="max-w-sm" {method} {action} on:submit|preventDefault={onSubmit}>
 	<slot />
 	{#if error}
 		<p class="text-red-500">{error}</p>

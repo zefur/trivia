@@ -2,12 +2,15 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import type { DB } from '$lib/db';
+import * as cookie from 'cookie';
 
 export const post: RequestHandler<
 	{ db: DB },
 	Partial<{ email: string; password: string }>
-> = async (req) => {
-	if (typeof req.body == 'string' || Array.isArray(req.body))
+> = async ({ request, locals }) => {
+	const body = await request.json();
+
+	if (typeof body == 'string' || Array.isArray(body))
 		return {
 			status: 400,
 			body: {
@@ -16,11 +19,13 @@ export const post: RequestHandler<
 		};
 
 	const input = {
-		email: ('get' in req.body ? req.body.get('email') : req.body.email)?.toLowerCase().trim(),
-		password: 'get' in req.body ? req.body.get('password') : req.body.password
+		email: ('get' in body ? body.get('email') : body.email)?.toLowerCase().trim(),
+		password: 'get' in body ? body.formData.get('password') : body.password
 	};
-	const db = req.locals.db;
+	const db = locals.db;
+
 	const user = db.users.get(input.email);
+
 	if (!user) return { status: 400, body: { error: 'Incorrect email or password' } };
 
 	const isPasswordValid = await bcrypt.compare(input.password, user.pwhash);
@@ -35,7 +40,9 @@ export const post: RequestHandler<
 			user
 		},
 		headers: {
-			'set-cookie': `token=${token.id}`
+			'set-cookie': cookie.serialize('token', token.id, {
+				maxAge: 60 * 60 * 24 * 1
+			})
 		}
 	};
 };

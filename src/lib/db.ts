@@ -6,6 +6,7 @@ export type User = {
 	pwhash: string;
 	questions: Array<any>;
 	current: any;
+	runs: number;
 };
 
 export type UserToken = {
@@ -22,7 +23,7 @@ const DB_FILE = 'db.json';
 
 export const initDB = async () => {
 	let data: Record<string, Array<[string, any]>> = {};
-	console.log('yes');
+
 	try {
 		const str = fs.readFileSync(DB_FILE);
 		data = JSON.parse(str.toString());
@@ -49,6 +50,6 @@ export const initDB = async () => {
 	db.__stop = () => {
 		clearInterval(interval);
 	};
-	console.log('me');
+
 	return db;
 };
