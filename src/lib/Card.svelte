@@ -5,6 +5,7 @@
 	export let currentQuestion;
 
 	export let message;
+	export let message2;
 	export let visible = false;
 	export let score = 0;
 
@@ -14,18 +15,19 @@
 	currentQuestion = myQuestions[0];
 
 	const checkAnswer = (value) => {
-		if (checkQuestion) {
-			$user.runs += 1;
-			$user.percentage =
-				($user.percentage * ($user.runs - 1) + (score / myQuestions.length) * 100) / $user.runs;
-			message = `congratulations you finished here are your results you got ${score} out of ${myQuestions.length}`;
-			visible = true;
-		} else if (value == currentQuestion.answer) {
+		if (value == currentQuestion.answer) {
 			message = 'Yes that is correct';
 			visible = true;
 			score += 1;
 		} else {
 			message = `Sorry that is incorrect the correct answer is ${currentQuestion.answer}`;
+			visible = true;
+		}
+		if (checkQuestion) {
+			$user.runs += 1;
+			$user.percentage =
+				($user.percentage * ($user.runs - 1) + (score / myQuestions.length) * 100) / $user.runs;
+			message2 = `congratulations you finished here are your results you got ${score} out of ${myQuestions.length}`;
 			visible = true;
 		}
 	};
@@ -70,6 +72,9 @@
 			{#if visible}
 				<div class="w-full m-2 text-center min-w-min">
 					<p class="font-semibold break-normal">{message}</p>
+					{#if message2}
+						<p class="font-semibold break-normal">{message2}</p>
+					{/if}
 				</div>
 				{#if checkQuestion}
 					<button class="p-2 border shadow bg-sky-600 mb-4"><a href="/home">Home</a></button><button
