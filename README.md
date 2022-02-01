@@ -1,6 +1,6 @@
-A simple trivia app that fetches from a static api 
+# Chingu Trivia
 
-To run on local machine clone the repo then 'yarn dev' in the folders commandline
+A simple trivia app that fetches from a static api allowing you to test your coding knowledge of HTML, CSS and Javascript
 
 ### Features
 - Can select different options for questions Filter by topic, Random 10 questions or Full amount of questions. 
@@ -11,3 +11,8 @@ To run on local machine clone the repo then 'yarn dev' in the folders commandlin
 ### Dev
 Switched from an in-memory database to a simple persistant store saved to the localstorage 
 Built using Sveltekit and Tailwindcss
+
+### Running the Project 
+
+The project can be found at https://chingu-trivia.herokuapp.com/
+Or clone the project and run 'yarn dev' in the folders terminal
